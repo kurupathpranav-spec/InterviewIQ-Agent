@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InterviewIQ – AI Interview Trainer</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+<!-- ═══════════════════ NAVBAR ═══════════════════ -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <div class="nav-brand">
+      <span class="brand-icon">⚡</span>
+      <span class="brand-name">InterviewIQ</span>
+    </div>
+    <div class="nav-links">
+      <a href="#home"     class="nav-link active" data-section="home">Home</a>
+      <a href="#analyze"  class="nav-link" data-section="analyze">Resume</a>
+      <a href="#interview" class="nav-link" data-section="interview">Interview</a>
+      <a href="#report"   class="nav-link" data-section="report">Report</a>
+    </div>
+    <div class="nav-badge">Powered by <strong>IBM Granite</strong></div>
+  </div>
+</nav>
+
+<!-- ═══════════════════ SECTION: HOME ═══════════════════ -->
+<section id="home" class="section active-section">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">🤖 AI-Powered Career Intelligence</div>
+      <h1 class="hero-title">Your AI-Powered<br/><span class="gradient-text">Interview Coach</span></h1>
+      <p class="hero-subtitle">Practice personalized interviews, discover your skill gaps, and improve with AI-powered feedback.</p>
+      <p class="hero-tagline">Prepare Smarter. Interview Better.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="scrollToSection('analyze')">🚀 Analyze Resume</button>
+        <button class="btn-outline" onclick="scrollToSection('interview')">🎯 Start Interview</button>
+      </div>
+    </div>
+    <div class="hero-graphic">
+      <div class="score-orb">
+        <div class="orb-ring"></div>
+        <div class="orb-inner">
+          <div class="orb-score">87%</div>
+          <div class="orb-label">AI Readiness</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <div class="section-label">Core Capabilities</div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">📄</div>
+      <h3>Resume Intelligence</h3>
+      <p>AI analyzes your resume to extract skills, identify strengths, and assess role alignment.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🎯</div>
+      <h3>Personalized Questions</h3>
+      <p>Dynamically generated technical and behavioral questions tailored to your profile and target role.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🎤</div>
+      <h3>AI Interview Simulation</h3>
+      <p>Experience a realistic mock interview with live evaluation and follow-up questions.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📊</div>
+      <h3>Smart Feedback</h3>
+      <p>Detailed scores, skill gap analysis, and a personalized 6-week improvement roadmap.</p>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="section-label">How It Works</div>
+  <div class="steps-row">
+    <div class="step-card">
+      <div class="step-num">01</div>
+      <div class="step-icon">📤</div>
+      <h4>Upload Resume</h4>
+      <p>Paste your resume or upload a PDF for instant AI analysis</p>
+    </div>
+    <div class="step-arrow">→</div>
+    <div class="step-card">
+      <div class="step-num">02</div>
+      <div class="step-icon">🎯</div>
+      <h4>Choose Role</h4>
+      <p>Select your target job role and preferred interview type</p>
+    </div>
+    <div class="step-arrow">→</div>
+    <div class="step-card">
+      <div class="step-num">03</div>
+      <div class="step-icon">💬</div>
+      <h4>Practice</h4>
+      <p>Answer AI-generated questions in a real interview simulation</p>
+    </div>
+    <div class="step-arrow">→</div>
+    <div class="step-card">
+      <div class="step-num">04</div>
+      <div class="step-icon">📈</div>
+      <h4>Improve</h4>
+      <p>Get scores, skill gap insights, and a personalized improvement plan</p>
+    </div>
+  </div>
+
+</section>
+
+<!-- ═══════════════════ SECTION: RESUME ANALYSIS ═══════════════════ -->
+<section id="analyze" class="section hidden-section">
+  <div class="page-header">
+    <h2>Resume Intelligence</h2>
+    <p>Let IBM Granite analyze your profile for your target role</p>
+  </div>
+
+  <div class="two-col">
+    <!-- INPUT FORM -->
+    <div class="card">
+      <h3 class="card-title">📝 Your Profile</h3>
+
+      <div class="form-group">
+        <label>Your Name</label>
+        <input id="inp-name" type="text" placeholder="e.g. Priya Sharma" class="inp" />
+      </div>
+
+      <div class="form-group">
+        <label>Target Role</label>
+        <select id="inp-role" class="inp">
+          <option>Software Developer</option>
+          <option>Data Analyst</option>
+          <option>Python Developer</option>
+          <option>Business Analyst</option>
+          <option>Power BI Developer</option>
+          <option>AI/ML</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Experience Level</label>
+        <select id="inp-exp" class="inp">
+          <option>Entry-level (0-2 yrs)</option>
+          <option>Mid-level (2-5 yrs)</option>
+          <option>Senior (5+ yrs)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Interview Focus</label>
+        <select id="inp-type" class="inp">
+          <option>Mixed</option>
+          <option>Technical</option>
+          <option>Behavioral</option>
+          <option>Case Study</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Upload Resume PDF <span class="muted">(optional)</span></label>
+        <input id="inp-pdf" type="file" accept=".pdf" class="inp file-inp" />
+      </div>
+
+      <div class="form-group">
+        <label>Resume Text <span class="muted">(paste here — required if no PDF)</span></label>
+        <textarea id="inp-resume" rows="10" class="inp textarea" placeholder="Paste your full resume text here...&#10;&#10;Example:&#10;John Doe | john@email.com&#10;Skills: Python, SQL, Tableau, Power BI&#10;Experience: 3 years at Accenture as Data Analyst&#10;..."></textarea>
+      </div>
+
+      <button class="btn-primary full-width" onclick="analyzeResume()">
+        <span id="analyze-btn-text">🔍 Analyze with IBM Granite</span>
+        <span id="analyze-spinner" class="spinner hidden"></span>
+      </button>
+    </div>
+
+    <!-- RESULTS -->
+    <div id="analysis-results" class="card hidden-section">
+      <h3 class="card-title">📊 Analysis Results</h3>
+
+      <div class="score-row" id="score-row"></div>
+
+      <div class="result-block" id="skills-block"></div>
+      <div class="result-block" id="strengths-block"></div>
+      <div class="result-block" id="gaps-block"></div>
+      <div class="result-block" id="topics-block"></div>
+      <div class="result-block" id="relevance-block"></div>
+
+      <button class="btn-primary full-width mt-16" onclick="proceedToInterview()">
+        🎯 Start Mock Interview →
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ SECTION: INTERVIEW ═══════════════════ -->
+<section id="interview" class="section hidden-section">
+  <div class="page-header">
+    <h2>AI Mock Interview</h2>
+    <p>Answer questions and receive real-time AI evaluation</p>
+  </div>
+
+  <!-- Question Setup (shown before interview starts) -->
+  <div id="interview-setup" class="card max-600">
+    <h3 class="card-title">🎯 Interview Setup</h3>
+    <p class="muted mb-16">Generate personalized questions for your target role</p>
+
+    <div class="form-group">
+      <label>Target Role</label>
+      <select id="q-role" class="inp">
+        <option>Software Developer</option>
+        <option>Data Analyst</option>
+        <option>Python Developer</option>
+        <option>Business Analyst</option>
+        <option>Power BI Developer</option>
+        <option>AI/ML</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Experience Level</label>
+      <select id="q-exp" class="inp">
+        <option>Entry-level (0-2 yrs)</option>
+        <option>Mid-level (2-5 yrs)</option>
+        <option>Senior (5+ yrs)</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Interview Focus</label>
+      <select id="q-type" class="inp">
+        <option>Mixed</option>
+        <option>Technical</option>
+        <option>Behavioral</option>
+      </select>
+    </div>
+
+    <button class="btn-primary full-width" onclick="generateQuestions()">
+      <span id="gen-btn-text">⚡ Generate Questions</span>
+      <span id="gen-spinner" class="spinner hidden"></span>
+    </button>
+  </div>
+
+  <!-- Interview Arena (shown during interview) -->
+  <div id="interview-arena" class="hidden-section">
+    <!-- Progress bar -->
+    <div class="interview-header">
+      <div class="interview-meta">
+        <span id="q-counter">Question 1 of 10</span>
+        <span class="badge" id="q-type-badge">Technical</span>
+        <span class="badge badge-difficulty" id="q-difficulty">Medium</span>
+      </div>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" id="interview-progress" style="width:10%"></div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <!-- Question Panel -->
+      <div class="card">
+        <div class="q-topic" id="q-topic">Topic: General</div>
+        <div class="q-text" id="current-question">Loading question...</div>
+
+        <div class="form-group mt-16">
+          <label>Your Answer</label>
+          <textarea id="answer-input" rows="8" class="inp textarea" placeholder="Type your answer here...&#10;&#10;Tips:&#10;• For behavioral: use STAR (Situation, Task, Action, Result)&#10;• Be specific with examples&#10;• Mention technologies/tools you used"></textarea>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-outline" onclick="skipQuestion()">Skip</button>
+          <button class="btn-primary" onclick="submitAnswer()">
+            <span id="submit-btn-text">Submit Answer</span>
+            <span id="submit-spinner" class="spinner hidden"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Live Feedback Panel -->
+      <div id="live-feedback" class="card feedback-card hidden-section">
+        <h3 class="card-title">🤖 AI Feedback</h3>
+        <div id="feedback-content"></div>
+        <div class="btn-row mt-16">
+          <button class="btn-primary" id="next-q-btn" onclick="nextQuestion()">Next Question →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar score tracker -->
+    <div class="score-tracker" id="score-tracker">
+      <h4>Live Scores</h4>
+      <div id="tracker-list"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ SECTION: REPORT ═══════════════════ -->
+<section id="report" class="section hidden-section">
+  <div class="page-header">
+    <h2>Performance Report</h2>
+    <p>Your AI-generated interview assessment and improvement plan</p>
+  </div>
+
+  <div id="report-placeholder" class="card text-center">
+    <div class="empty-icon">📋</div>
+    <h3>No Report Yet</h3>
+    <p class="muted">Complete a mock interview to generate your personalized performance report.</p>
+    <button class="btn-primary mt-16" onclick="scrollToSection('interview')">Start Interview →</button>
+  </div>
+
+  <div id="report-content" class="hidden-section">
+    <!-- Score Cards -->
+    <div class="score-cards-row" id="report-scores"></div>
+
+    <!-- Summary + Recommendation -->
+    <div class="two-col">
+      <div class="card">
+        <h3 class="card-title">📝 Executive Summary</h3>
+        <p id="report-summary"></p>
+        <div class="hire-badge" id="hire-badge"></div>
+      </div>
+      <div class="card">
+        <h3 class="card-title">💪 Top Strengths</h3>
+        <ul id="report-strengths" class="list-clean"></ul>
+        <h3 class="card-title mt-16">⚠️ Critical Gaps</h3>
+        <ul id="report-gaps" class="list-clean"></ul>
+      </div>
+    </div>
+
+    <!-- Skill Gap Analysis -->
+    <div class="card">
+      <h3 class="card-title">🔍 Skill Gap Analysis</h3>
+      <div id="skill-gap-table"></div>
+    </div>
+
+    <!-- Improvement Plan -->
+    <div class="card">
+      <h3 class="card-title">🗓️ 6-Week Improvement Plan</h3>
+      <div id="improvement-plan"></div>
+    </div>
+
+    <!-- Resources -->
+    <div class="card">
+      <h3 class="card-title">📚 Recommended Resources</h3>
+      <div id="resources-list"></div>
+    </div>
+
+    <div class="text-center mt-16">
+      <button class="btn-primary" onclick="restartInterview()">🔄 Start New Interview</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ TOAST ═══════════════════ -->
+<div id="toast" class="toast hidden"></div>
+
+<!-- ═══════════════════ LOADING OVERLAY ═══════════════════ -->
+<div id="loading-overlay" class="loading-overlay hidden">
+  <div class="loading-box">
+    <div class="loading-spinner"></div>
+    <div class="loading-text" id="loading-text">Processing with IBM Granite...</div>
+    <div class="loading-sub">This may take a few seconds</div>
+  </div>
+</div>
+
+<script src="/static/js/app.js"></script>
+</body>
+</html>

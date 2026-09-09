@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>InterviewIQ – Architecture Blueprint</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,"Segoe UI",system-ui,sans-serif;background:#0b0e1a;color:#dde1ff;font-size:13px;line-height:1.6;padding:36px 28px 56px}
+
+/* ── Title ── */
+.title-block{text-align:center;margin-bottom:40px}
+.title-block h1{font-size:26px;font-weight:800;letter-spacing:-.3px}
+.title-block h1 span{background:linear-gradient(135deg,#7b6fff,#4fc3f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.title-block p{color:#6b73a8;font-size:13px;margin-top:6px}
+
+/* ── Section labels ── */
+.sec-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#4a5280;margin:36px 0 14px}
+
+/* ── Layer strip ── */
+.layers{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1080px;margin:0 auto}
+.layer{border-radius:13px;padding:22px 20px}
+.layer-fe{background:#141830;border:1px solid #7b6fff33}
+.layer-be{background:#0e1e2e;border:1px solid #4fc3f733}
+.layer-ai{background:#0d1e16;border:1px solid #00e67633}
+
+.layer-head{display:flex;align-items:center;gap:9px;margin-bottom:16px}
+.layer-head .ico{font-size:22px}
+.layer-head h2{font-size:14px;font-weight:700}
+.layer-head .pill{margin-left:auto;font-size:10px;font-weight:700;padding:2px 9px;border-radius:10px}
+.pill-v{background:rgba(123,111,255,.18);color:#a78bfa;border:1px solid rgba(123,111,255,.3)}
+.pill-b{background:rgba(79,195,247,.14);color:#4fc3f7;border:1px solid rgba(79,195,247,.3)}
+.pill-g{background:rgba(0,230,118,.12);color:#00e676;border:1px solid rgba(0,230,118,.28)}
+
+.item{display:flex;gap:8px;padding:6px 0;border-bottom:1px solid #1e2444;font-size:12px;color:#8b93c8}
+.item:last-child{border-bottom:none}
+.dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.dv{background:#7b6fff}.db{background:#4fc3f7}.dg{background:#00e676}.dy{background:#ffd740}.dr{background:#ff5252}
+
+/* ── Data-flow diagram ── */
+.flow-wrap{max-width:1080px;margin:0 auto}
+.flow-diagram{background:#11142a;border:1px solid #1e2444;border-radius:14px;padding:28px 24px}
+.flow-diagram h2{font-size:14px;font-weight:700;margin-bottom:22px;color:#c5caf5}
+
+.flow-steps{display:flex;align-items:stretch;gap:0}
+.fstep{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 6px}
+.fbox{border-radius:10px;padding:14px 10px;width:100%;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+.fbox-user {background:#19173a;border:1px solid #7b6fff44}
+.fbox-be   {background:#0d1e30;border:1px solid #4fc3f744}
+.fbox-rag  {background:#141e12;border:1px solid #ffd74044}
+.fbox-ai   {background:#0b1e14;border:1px solid #00e67644}
+.fbox-eval {background:#1e1230;border:1px solid #a78bfa44}
+.fbox-rpt  {background:#1e1410;border:1px solid #ff986044}
+
+.fbox .ficon{font-size:22px}
+.fbox .ftitle{font-size:11px;font-weight:700;color:#dde1ff}
+.fbox .fdesc{font-size:10px;color:#5b6090;line-height:1.4}
+
+.farrow{display:flex;align-items:center;padding:0 2px;color:#2d3460;font-size:18px;flex-shrink:0;align-self:center;margin-bottom:20px}
+
+.fstep .fnum{font-size:9px;font-weight:700;letter-spacing:1px;color:#3d4470;margin-bottom:8px;text-transform:uppercase}
+
+/* ── API routes ── */
+.routes{max-width:1080px;margin:0 auto}
+.route-table{width:100%;border-collapse:collapse;background:#11142a;border:1px solid #1e2444;border-radius:12px;overflow:hidden}
+.route-table th{background:#16193a;padding:10px 16px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:#4a5280}
+.route-table td{padding:10px 16px;border-top:1px solid #1a1e3a;font-size:12px}
+.method{font-size:10px;font-weight:800;padding:2px 8px;border-radius:5px;display:inline-block}
+.m-post{background:rgba(0,230,118,.12);color:#00e676}
+.m-get {background:rgba(79,195,247,.12);color:#4fc3f7}
+.route-path{color:#a78bfa;font-family:Consolas,monospace;font-size:12px}
+.route-desc{color:#7b82b8}
+.rag-tag{background:rgba(255,215,64,.1);color:#ffd740;border:1px solid rgba(255,215,64,.25);font-size:10px;padding:1px 7px;border-radius:8px;display:inline-block}
+.ai-tag {background:rgba(0,230,118,.1); color:#00e676; border:1px solid rgba(0,230,118,.25);font-size:10px;padding:1px 7px;border-radius:8px;display:inline-block}
+
+/* ── RAG + Granite boxes ── */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:1080px;margin:0 auto}
+.info-box{background:#11142a;border:1px solid #1e2444;border-radius:13px;padding:22px 20px}
+.info-box h2{font-size:13px;font-weight:700;margin-bottom:14px;color:#c5caf5}
+.role-row{display:flex;align-items:center;gap:9px;padding:5px 0;border-bottom:1px solid #1a1e3a;font-size:12px;color:#7b82b8}
+.role-row:last-child{border-bottom:none}
+.role-row .rico{font-size:15px}
+.granite-call{padding:8px 0;border-bottom:1px solid #1a1e3a}
+.granite-call:last-child{border-bottom:none}
+.gc-title{font-size:12px;font-weight:700;color:#c5caf5;margin-bottom:2px}
+.gc-detail{font-size:11px;color:#5b6090}
+
+/* ── Tech stack ── */
+.tech-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:1080px;margin:0 auto}
+.tech-card{background:#11142a;border:1px solid #1e2444;border-radius:10px;padding:14px}
+.tc-layer{font-size:9px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:#3d4470;margin-bottom:5px}
+.tc-name{font-size:13px;font-weight:700;color:#dde1ff}
+.tc-detail{font-size:11px;color:#5b6090;margin-top:3px}
+
+/* ── footer ── */
+.footer{max-width:1080px;margin:40px auto 0;border-top:1px solid #1a1e3a;padding-top:18px;text-align:center;font-size:11px;color:#2d3460}
+.footer strong{color:#3d4580}
+
+@media(max-width:760px){
+  .layers,.two-col,.tech-grid{grid-template-columns:1fr}
+  .flow-steps{flex-direction:column;gap:8px}
+  .farrow{transform:rotate(90deg)}
+  .tech-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ TITLE ══════════════════════════════════════════════════════════════ -->
+<div class="title-block">
+  <h1>InterviewIQ – <span>Architecture Blueprint</span></h1>
+  <p>AI Interview Trainer · IBM Granite · Flask · RAG · Problem Statement #22</p>
+</div>
+
+<!-- ══ LAYER OVERVIEW ═════════════════════════════════════════════════════ -->
+<div class="sec-label">System Layers</div>
+<div class="layers">
+
+  <!-- Frontend -->
+  <div class="layer layer-fe">
+    <div class="layer-head">
+      <span class="ico">🖥️</span>
+      <h2>Frontend – SPA</h2>
+      <span class="pill pill-v">Vanilla JS</span>
+    </div>
+    <div class="item"><span class="dot dv"></span>Home – hero, feature cards, 4-step how-it-works</div>
+    <div class="item"><span class="dot dv"></span>Resume Analysis – PDF upload + text paste form</div>
+    <div class="item"><span class="dot dv"></span>Interview Arena – Q&amp;A UI, progress bar, live score tracker</div>
+    <div class="item"><span class="dot dv"></span>Performance Report – score cards, gap table, improvement plan</div>
+    <div class="item"><span class="dot dv"></span>Section routing, toast notifications, loading overlay</div>
+    <div class="item"><span class="dot dv"></span>static/css/style.css · static/js/app.js · templates/index.html</div>
+  </div>
+
+  <!-- Backend -->
+  <div class="layer layer-be">
+    <div class="layer-head">
+      <span class="ico">⚙️</span>
+      <h2>Backend – Flask</h2>
+      <span class="pill pill-b">Python 3.11</span>
+    </div>
+    <div class="item"><span class="dot db"></span>app.py – 5 REST API routes, IAM token cache</div>
+    <div class="item"><span class="dot db"></span>Resume ingestion – form-data, Werkzeug secure upload</div>
+    <div class="item"><span class="dot db"></span>PyPDF2 server-side PDF text extraction</div>
+    <div class="item"><span class="dot db"></span>RAG context injection before every Granite call</div>
+    <div class="item"><span class="dot db"></span>JSON regex extraction + structured fallback on errors</div>
+    <div class="item"><span class="dot db"></span>python-dotenv config · waitress/gunicorn production serving</div>
+  </div>
+
+  <!-- AI -->
+  <div class="layer layer-ai">
+    <div class="layer-head">
+      <span class="ico">🤖</span>
+      <h2>IBM Granite AI</h2>
+      <span class="pill pill-g">watsonx.ai</span>
+    </div>
+    <div class="item"><span class="dot dg"></span>Model: ibm/granite-4-h-small (us-south)</div>
+    <div class="item"><span class="dot dg"></span>Endpoint: /ml/v1/text/chat?version=2023-05-29</div>
+    <div class="item"><span class="dot dg"></span>IBM IAM OAuth – API key → Bearer token (cached)</div>
+    <div class="item"><span class="dot dg"></span>Structured JSON prompting with strict output contracts</div>
+    <div class="item"><span class="dot dg"></span>Temperature tuned per call type (0.3–0.8)</div>
+    <div class="item"><span class="dot dg"></span>Auto-fallback data when API times out or parse fails</div>
+  </div>
+
+</div>
+
+<!-- ══ DATA FLOW DIAGRAM ═══════════════════════════════════════════════════ -->
+<div class="sec-label">End-to-End Data Flow</div>
+<div class="flow-wrap">
+<div class="flow-diagram">
+  <h2>🔄 Request → Response Flow</h2>
+  <div class="flow-steps">
+
+    <div class="fstep">
+      <div class="fnum">Step 01</div>
+      <div class="fbox fbox-user">
+        <div class="ficon">👤</div>
+        <div class="ftitle">User Input</div>
+        <div class="fdesc">Name, role, experience, resume text or PDF</div>
+      </div>
+    </div>
+    <div class="farrow">›</div>
+
+    <div class="fstep">
+      <div class="fnum">Step 02</div>
+      <div class="fbox fbox-be">
+        <div class="ficon">⚙️</div>
+        <div class="ftitle">Flask API</div>
+        <div class="fdesc">POST /api/analyze-resume validates &amp; extracts text</div>
+      </div>
+    </div>
+    <div class="farrow">›</div>
+
+    <div class="fstep">
+      <div class="fnum">Step 03</div>
+      <div class="fbox fbox-rag">
+        <div class="ficon">📚</div>
+        <div class="ftitle">RAG Context</div>
+        <div class="fdesc">Role KB injected: skills, topics, behavioral focus</div>
+      </div>
+    </div>
+    <div class="farrow">›</div>
+
+    <div class="fstep">
+      <div class="fnum">Step 04</div>
+      <div class="fbox fbox-ai">
+        <div class="ficon">🤖</div>
+        <div class="ftitle">IBM Granite</div>
+        <div class="fdesc">Analyzes resume → JSON: skills, scores, gaps</div>
+      </div>
+    </div>
+    <div class="farrow">›</div>
+
+    <div class="fstep">
+      <div class="fnum">Step 05</div>
+      <div class="fbox fbox-eval">
+        <div class="ficon">🎤</div>
+        <div class="ftitle">Mock Interview</div>
+        <div class="fdesc">10 Q&amp;As generated; each answer evaluated live</div>
+      </div>
+    </div>
+    <div class="farrow">›</div>
+
+    <div class="fstep">
+      <div class="fnum">Step 06</div>
+      <div class="fbox fbox-rpt">
+        <div class="ficon">📊</div>
+        <div class="ftitle">Report</div>
+        <div class="fdesc">Scores, skill gap table, 6-week plan, resources</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ══ API ROUTES ══════════════════════════════════════════════════════════ -->
+<div class="sec-label">API Routes</div>
+<div class="routes">
+<table class="route-table">
+  <thead>
+    <tr>
+      <th>Method</th><th>Endpoint</th><th>Description</th><th>AI</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="method m-get">GET</span></td>
+      <td class="route-path">/</td>
+      <td class="route-desc">Serves SPA shell (index.html via Jinja2)</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><span class="method m-get">GET</span></td>
+      <td class="route-path">/api/health</td>
+      <td class="route-desc">Service health check – returns model ID &amp; status</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><span class="method m-post">POST</span></td>
+      <td class="route-path">/api/analyze-resume</td>
+      <td class="route-desc">Accepts form-data (text + optional PDF). Returns skills, strengths, scores</td>
+      <td><span class="rag-tag">RAG</span> <span class="ai-tag">Granite</span></td>
+    </tr>
+    <tr>
+      <td><span class="method m-post">POST</span></td>
+      <td class="route-path">/api/generate-questions</td>
+      <td class="route-desc">Generates 10 interview questions (technical / behavioral / situational)</td>
+      <td><span class="rag-tag">RAG</span> <span class="ai-tag">Granite</span></td>
+    </tr>
+    <tr>
+      <td><span class="method m-post">POST</span></td>
+      <td class="route-path">/api/evaluate-answer</td>
+      <td class="route-desc">Scores a Q&amp;A pair 0–10. Returns grade, feedback, follow-up</td>
+      <td><span class="ai-tag">Granite</span></td>
+    </tr>
+    <tr>
+      <td><span class="method m-post">POST</span></td>
+      <td class="route-path">/api/generate-report</td>
+      <td class="route-desc">Produces full report: skill gap table, 6-week plan, hire recommendation</td>
+      <td><span class="ai-tag">Granite</span></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<!-- ══ RAG KB + GRANITE CALLS ═════════════════════════════════════════════ -->
+<div class="sec-label">RAG Knowledge Base &amp; Granite Calls</div>
+<div class="two-col">
+
+  <div class="info-box">
+    <h2>📚 RAG Knowledge Base – 7 Role Profiles</h2>
+    <div class="role-row"><span class="rico">📊</span>Data Analyst — SQL, Pandas, Tableau, Statistics, ETL</div>
+    <div class="role-row"><span class="rico">🐍</span>Python Developer — OOP, Flask/Django, REST APIs, Testing</div>
+    <div class="role-row"><span class="rico">💻</span>Software Developer — DSA, System Design, CI/CD, Microservices</div>
+    <div class="role-row"><span class="rico">📋</span>Business Analyst — Requirements, UML, Agile/Scrum</div>
+    <div class="role-row"><span class="rico">📈</span>Power BI Developer — DAX, Power Query, Star Schema, RLS</div>
+    <div class="role-row"><span class="rico">🧠</span>AI/ML Engineer — PyTorch, Feature Engineering, MLOps, RAG</div>
+    <div class="role-row"><span class="rico">🔵</span>Other — General problem solving, fundamentals</div>
+  </div>
+
+  <div class="info-box">
+    <h2>🤖 Agentic IBM Granite Calls (per session)</h2>
+    <div class="granite-call">
+      <div class="gc-title">Call 1 – Resume Analysis</div>
+      <div class="gc-detail">Input: resume text + RAG context → JSON: skills, readiness score, gaps, topics</div>
+    </div>
+    <div class="granite-call">
+      <div class="gc-title">Call 2 – Question Generation</div>
+      <div class="gc-detail">Input: role + experience + skills + RAG → JSON: 10 questions across 3 types</div>
+    </div>
+    <div class="granite-call">
+      <div class="gc-title">Calls 3–12 – Per-Answer Evaluation</div>
+      <div class="gc-detail">Input: question + answer → JSON: score/10, grade, strengths, improvements, follow-up</div>
+    </div>
+    <div class="granite-call">
+      <div class="gc-title">Call 13 – Final Report Generation</div>
+      <div class="gc-detail">Input: all scores + role → JSON: report, skill gap table, 6-week plan, resources</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ TECH STACK ══════════════════════════════════════════════════════════ -->
+<div class="sec-label">Technology Stack</div>
+<div class="tech-grid">
+  <div class="tech-card">
+    <div class="tc-layer">AI Model</div>
+    <div class="tc-name">IBM Granite</div>
+    <div class="tc-detail">ibm/granite-4-h-small · watsonx.ai · us-south region</div>
+  </div>
+  <div class="tech-card">
+    <div class="tc-layer">Backend</div>
+    <div class="tc-name">Flask 3 / Python 3.11</div>
+    <div class="tc-detail">REST API · Jinja2 · Werkzeug · PyPDF2</div>
+  </div>
+  <div class="tech-card">
+    <div class="tc-layer">Frontend</div>
+    <div class="tc-name">Vanilla HTML/CSS/JS</div>
+    <div class="tc-detail">Dark SaaS UI · SPA routing · Fetch API</div>
+  </div>
+  <div class="tech-card">
+    <div class="tc-layer">RAG</div>
+    <div class="tc-name">In-Memory KB</div>
+    <div class="tc-detail">7 role profiles · skills · topics · behavioral focus</div>
+  </div>
+  <div class="tech-card">
+    <div class="tc-layer">Auth</div>
+    <div class="tc-name">IBM IAM OAuth</div>
+    <div class="tc-detail">API Key → Bearer Token · Cached · Auto-refresh</div>
+  </div>
+  <div class="tech-card">
+    <div class="tc-layer">Config</div>
+    <div class="tc-name">python-dotenv</div>
+    <div class="tc-detail">.env file · API key · Project ID · Model ID</div>
+  </div>
+  <div class="tech-card">
+    <div class="tc-layer">WSGI Server</div>
+    <div class="tc-name">Waitress / Gunicorn</div>
+    <div class="tc-detail">Production serving · 4 threads · Windows + Linux</div>
+  </div>
+  <div class="tech-card">
+    <div class="tc-layer">File I/O</div>
+    <div class="tc-name">PyPDF2</div>
+    <div class="tc-detail">Server-side PDF extraction · secure temp upload</div>
+  </div>
+</div>
+
+<div class="footer">
+  <strong>InterviewIQ – Architecture Blueprint</strong> &nbsp;·&nbsp; AI Interview Trainer &nbsp;·&nbsp; Problem Statement #22 &nbsp;·&nbsp; Powered by IBM Granite &nbsp;·&nbsp; Made with IBM Bob
+</div>
+
+</body>
+</html>

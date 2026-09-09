@@ -1,0 +1,44 @@
+# Secrets
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Upload temp folder
+uploads/
+
+# Tunnel / deployment artifacts
+tunnel.js
+lt_tunnel.js
+deploy_ngrok.py
+public_url.txt
+tunnel_output.txt
+tunnel_error.txt
+
+# watsonx Orchestrate workspace files (not part of this app)
+workspace_config.yaml
+agents/
+connections/
+knowledge-bases/
+models/
+toolkits/
+tools/
