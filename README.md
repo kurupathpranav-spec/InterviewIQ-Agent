@@ -6,6 +6,12 @@ An AI-powered interview preparation platform built with IBM Granite, Flask, and 
 
 ---
 
+## Project Preview
+
+![InterviewIQ Landing Page](docs/screenshots/00-home-landing-page.jpg)
+
+[View Complete Project Workflow →](docs/workflow.md)
+
 ## Features
 
 - 📄 **Resume Intelligence** – Paste or upload your resume; IBM Granite extracts skills, strengths, and role alignment.
